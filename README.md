@@ -21,8 +21,8 @@ USAGE:
 
 1. smake 
 
-This will try to find the file make.conf that it will process will 
+This will try to find the file make.conf that it will process
 
 2. smake filename
 
-This will try to find the file 'filename' that it will process will 
+This will try to find the file 'filename' that it will process
