@@ -1,0 +1,60 @@
+#!/usr/bin/python3
+
+
+import os 
+import sys
+
+def process(string,li):
+	l=string.split(' ')
+	if(l[0]=='COMP'):
+		li.append(l[1])
+	elif(l[0]=='SRC'):
+		for i in range(1,len(l)):
+			li.append(l[i])
+	elif(l[0]=='LIBS'):
+		for i in range(1,len(l)):
+			s1='-l'+l[i]
+			li.append(s1)
+	elif(l[0]=='FLAGS'):
+		for i in range(1,len(l)):
+			li.append(l[i])
+	elif(l[0]=='OUT'):
+		ss='-o '+l[1]
+		li.append(ss)
+	elif(l[0]=='LPATH'):
+		for i in range(1,len(l)):
+			ls='-L'+l[1]
+	elif(l[0]=='IPATH'):
+		for i in range(1,len(l)):
+			ls='-I'+l[1]
+	else:
+		print("Syntax Erorr")
+	return li
+
+cmd_li=[]
+
+
+
+if(len(sys.argv)==1):
+	fh=open("make.conf","r")
+else:
+	fh=open(sys.argv[1],"r")
+lines=fh.readlines()
+for string in lines:
+	if(string=='\n'):
+		lines.remove(string)
+for i in range(len(lines)):
+	string=lines[i]
+	if(string[-1]=='\n'):
+		lines[i]=string[:-1]
+'''for i in lines:
+	if(i[0]=='#'):
+		lines.remove(i)'''
+#print(lines)
+
+for i in lines:
+	cmd_li=process(i,cmd_li)
+
+exec_line=' '.join(cmd_li)
+#print(exec_line)
+os.system(exec_line)
